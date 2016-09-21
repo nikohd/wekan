@@ -46,9 +46,9 @@ npm install -g npm
 npm install forever -g
 
 cd
-wget https://github.com/wekan/wekan/releases/download/v0.10.1/wekan-0.10.1.tar.gz
+wget https://github.com/wekan/wekan/releases/download/v0.11.0-rc2/wekan-0.11.0-rc2.tar.gz
 rm -rf ~/bundle
-tar xzvf wekan-0.10.1.tar.gz
+tar xzvf wekan-v0.11.0-rc2.tar.gz
 
 cd bundle/programs/server && npm install
 
@@ -88,10 +88,11 @@ _EOF
 # Cat text, but keep $ uninterpreted
 cat >> /etc/init.d/wekan <<'_EOF'
 export PATH=$PATH:$NODE_PATH:/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
-export MONGO_URL="mongodb://127.0.0.1:27017/wekan"
-export ROOT_URL="http://127.0.0.1"
+export MONGO_URL="mongodb://10.10.10.11:27017/wekan"
+export ROOT_URL="http://10.10.10.11"
 export PORT="8080"
-export MAIL_URL='smtp://user:pass@mailserver.examples.com:25/'
+export MAIL_URL='smtp://user:pass@smtp.gmail.com:465'/
+export MAIL_FROM="dan.it@dialanote.com"
 
 NAME="Wekan"
 APPLICATION_DIRECTORY=/root/bundle
@@ -178,7 +179,7 @@ sleep 1
 # Second step
 cat > /usr/local/bin/get-ip-address <<'_EOF'
 #!/bin/bash
-/sbin/ifconfig | grep "inet addr" | grep -v "127.0.0.1" | awk '{ print $2 }' | awk -F: '{ print $2 }'
+/sbin/ifconfig | grep "inet addr" | grep -v "10.10.10.11" | awk '{ print $2 }' | awk -F: '{ print $2 }'
 
 _EOF
 chmod +x /usr/local/bin/get-ip-address
